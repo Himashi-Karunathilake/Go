@@ -1,5 +1,5 @@
 /* Objective of the Project:
-The following tool allows users to rncrypt and decrypt a file using a passphrase. */
+The following tool allows users to encrypt and decrypt a file using a passphrase. */
 
 package main
 
@@ -16,7 +16,7 @@ import (
 
 // Declare constants
 const (
-	ivSize  = 12 // Size of the IV block is 12
+	ivSize  = 12 // Size of the IV block is 12 bytes (96 bits)
 	keySize = 16 // The key size is 16 bytes (128 bits)
 )
 
@@ -68,7 +68,6 @@ func encryptFile(inputFile, outputFile string, passphrase []byte) error {
 	fmt.Println()
 
 	return nil
-
 }
 
 // Function to decrypt a file
@@ -119,7 +118,6 @@ func decryptFile(inputFile, outputFile string, passphrase []byte) error {
 	fmt.Println()
 
 	return nil
-
 }
 
 // Main function
