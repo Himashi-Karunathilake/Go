@@ -1,7 +1,7 @@
 /* Objective of the Project:
 Check if a brute-force or dictionary-based password cracking can be performed on a user provided password.
 
-NOTE: 	The password file that is being used was obtained from:https://github.com/berandal666/Passwords/blob/master/10_million_password_list_top_100000.txt */
+NOTE: 	The password file that is being used was obtained from: https://github.com/berandal666/Passwords/blob/master/10_million_password_list_top_100000.txt */
 
 package main
 
@@ -16,8 +16,8 @@ import (
 
 func main() {
 	fmt.Println("Initialization started..........")
-	// Open the file and read the contents into a string
 
+	// Open the file and read the contents into a string
 	filePath := "passwords_file.txt"
 	readContent, readError := os.ReadFile(filePath)
 	if readError != nil {
@@ -54,15 +54,15 @@ func main() {
 	// Convert the password bytes to a string
 	userPassword = string(passwordBytes)
 
-	// Start the bruteforce attack
-	fmt.Println("\nStarting bruteforce attack..........")
+	// Start the dictionary-based attack
+	fmt.Println("\nStarting dictionary-based attack..........")
 	fmt.Println("Please wait while the attack completes..........")
 
 	var exist bool
 
 	for password := range passwordMap {
 		if password == userPassword {
-			fmt.Println("Bruteforce attack completed!\n\nFetching your results..........")
+			fmt.Println("Dictionary-based attack completed!\n\nFetching your results..........")
 			fmt.Println("\nOh no! The password you provided was found! Please consider using another, more secure password in your system.")
 			exist = true
 			break
@@ -72,7 +72,7 @@ func main() {
 	}
 
 	if !exist {
-		fmt.Println("Bruteforce attack completed!\n\nFetching your results..........")
+		fmt.Println("Dictionary-based attack completed!\n\nFetching your results..........")
 		fmt.Println("\nCongratulations! The password you entered was not found. The password currently in use is secure.")
 	}
 
