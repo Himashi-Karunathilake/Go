@@ -64,7 +64,7 @@ func encryptFile(inputFile, outputFile string, passphrase []byte) error {
 	output.Write(iv)
 	output.Write(encryptedData)
 
-	fmt.Println("File encrypted successfully!")
+	fmt.Println("***** File encrypted successfully! *****")
 	fmt.Println()
 
 	return nil
@@ -114,7 +114,7 @@ func decryptFile(inputFile, outputFile string, passphrase []byte) error {
 
 	output.Write(decryptData)
 
-	fmt.Println("File decrypted successfully!")
+	fmt.Println("***** File decrypted successfully! *****")
 	fmt.Println()
 
 	return nil
@@ -126,8 +126,7 @@ func main() {
 	fmt.Println()
 
 	var choice int
-	var inputFile string
-	//var passphrase []byte
+	var inputFile, outputFileName string
 
 	fmt.Print("What would you like to do?\nEnter 1 for file encryption.\nEnter 2 for file decryption.\n\nI would like to: ")
 	fmt.Scan(&choice)
@@ -137,10 +136,13 @@ func main() {
 		fmt.Println("\nStarting file encryption.....")
 		fmt.Println()
 
-		fmt.Print("Please provide the name and / or location of the file to be encrypted: ")
+		fmt.Print("Please provide the name and / or location of the file to be encrypted (with the file extension - e.g., sampleFile.txt): ")
 		fmt.Scan(&inputFile)
 
-		fmt.Print("File noted!\n\nPlease enter a passphrase to be used for encryption: ")
+		fmt.Print("Input file noted!\n\nPlease provide the name and / or location for the encrypted file (with the file extension - e.g., sampleEncryptedFile.txt): ")
+		fmt.Scan(&outputFileName)
+
+		fmt.Print("Output file noted!\n\nPlease enter a passphrase to be used for encryption: ")
 
 		passphrase, passphraseError := term.ReadPassword(int(syscall.Stdin))
 		if passphraseError != nil {
@@ -148,6 +150,7 @@ func main() {
 			return
 		}
 
+		fmt.Println()
 		fmt.Println()
 
 		// Truncate or pad the passphrase to 16 bytes (128 bits)
@@ -160,9 +163,7 @@ func main() {
 			return
 		}
 
-		encryptedFile := "encrypted_file.txt"
-
-		encryptError := encryptFile(inputFile, encryptedFile, passphrase)
+		encryptError := encryptFile(inputFile, outputFileName, passphrase)
 		if encryptError != nil {
 			fmt.Println("There was an error encrypting the file.\n", encryptError)
 			return
@@ -172,10 +173,13 @@ func main() {
 		fmt.Println("\nStarting file decryption.....")
 		fmt.Println()
 
-		fmt.Print("Please provide the name and / or location of the file to be decrypted: ")
+		fmt.Print("Please provide the name and / or location of the file to be decrypted (with the file extension - e.g., sampleEncryptedFile.txt): ")
 		fmt.Scan(&inputFile)
 
-		fmt.Print("File noted!\n\nPlease enter a passphrase to be used for decryption: ")
+		fmt.Print("Input file noted!\n\nPlease provide the name and / or location for the decrypted file (with the file extension - e.g., sampleDecryptedFile.txt): ")
+		fmt.Scan(&outputFileName)
+
+		fmt.Print("Output file noted!\n\nPlease enter a passphrase to be used for decryption: ")
 
 		passphrase, passphraseError := term.ReadPassword(int(syscall.Stdin))
 		if passphraseError != nil {
@@ -183,6 +187,7 @@ func main() {
 			return
 		}
 
+		fmt.Println()
 		fmt.Println()
 
 		// Truncate or pad the passphrase to 16 bytes (128 bits)
@@ -195,9 +200,7 @@ func main() {
 			return
 		}
 
-		decryptedFile := "decrypted_file.txt"
-
-		decryptError := decryptFile(inputFile, decryptedFile, passphrase)
+		decryptError := decryptFile(inputFile, outputFileName, passphrase)
 		if decryptError != nil {
 			fmt.Println("There was an error decrypting the file.\n", decryptError)
 			return
